@@ -10,40 +10,43 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int count = 0;
-
-  void onClicked() {
-    setState(() {
-      count = count + 1;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        textTheme: const TextTheme(
+          titleLarge: TextStyle(
+            color: Colors.red,
+          ),
+        ),
+      ),
       home: Scaffold(
         backgroundColor: Colors.white,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Click count',
-                style: TextStyle(fontSize: 30),
-              ),
-              Text(
-                '$count',
-                style: const TextStyle(fontSize: 30),
-              ),
-              IconButton(
-                  iconSize: 50,
-                  onPressed: onClicked,
-                  icon: const Icon(
-                    Icons.add_box_rounded,
-                  ))
-            ],
+            children: const [MyLargeTitle()],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class MyLargeTitle extends StatelessWidget {
+  const MyLargeTitle({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      'My Large Title',
+      style: TextStyle(
+        fontSize: 30,
+        //BuildContext를 통해서 parent의 theme를 사용가능.
+        color: Theme.of(context).textTheme.titleLarge?.color,
+
       ),
     );
   }
